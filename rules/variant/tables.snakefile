@@ -44,7 +44,7 @@ rule variant_tables_caller_summary_insdel:
                             index=['SOURCETYPE', 'SOURCENAME', 'SAMPLE', 'N', 'MEAN', 'BP']
                         )
                     ).T.astype(
-                        {'SOURCETYPE': str, 'SOURCENAME': str, 'SAMPLE': str, 'N': np.int, 'MEAN': np.float, 'BP': np.int}
+                        {'SOURCETYPE': str, 'SOURCENAME': str, 'SAMPLE': str, 'N': int, 'MEAN': float, 'BP': int}
                     )
             )
 
