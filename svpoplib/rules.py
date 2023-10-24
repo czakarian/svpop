@@ -229,4 +229,73 @@ def parse_wildcards(file_pattern, name, sample_table, sample=None, wildcards=Non
     return file_pattern.format(**wildcards)
 
 
+def get_sample_list(sample_list_name, config):
+    """
+    Get a named list of samples ("samplelist" in config) or a single sample name if the sample-list is not defined.
 
+    :param sample_list_name: Name of the sample list to retrieve.
+    :param config: Config object.
+
+    :return: List of sample names or None if the sample list was not found.
+    """
+
+    sample_list_name = sample_list_name.strip()
+
+    if not sample_list_name:
+        raise RuntimeError('Sample list name is empty')
+
+    # Get attributes
+    hap_expand = False
+    expand_match = False
+
+    if ':' in sample_list_name:
+        tok = sample_list_name.split(':')
+
+        list_name = tok[0].strip()
+
+        for attr in tok[1:]:
+            attr = attr.strip()
+
+            if not attr:
+                continue
+
+            if attr == 'hap':
+                hap_expand = True
+
+            elif attr == 'hapmatch':
+                expand_match = True
+
+            else:
+                raise RuntimeError(f'Unrecognized attribute "{attr}" in sample list name {sample_list_name}')
+
+    else:
+            list_name = sample_list_name
+
+    # Check attributes
+    if hap_expand and expand_match:
+        raise RuntimeError(f'Conflicting sample list attributes: Cannot set "hapexp" and "expmatch" for the same list')
+
+    # Get list
+    sample_list = config.get('samplelist', dict()).get(list_name, [list_name])
+
+    # Process attributes
+    if hap_expand and sample_list is not None:
+        exp_sample_list = list()
+
+        for sample_name in sample_list:
+            exp_sample_list.append(f'{sample_name}-h1')
+            exp_sample_list.append(f'{sample_name}-h2')
+
+        sample_list = exp_sample_list
+
+    if expand_match and sample_list is not None:
+        exp_sample_list = list()
+
+        for sample_name in sample_list:
+            exp_sample_list.append(f'{sample_name}')
+            exp_sample_list.append(f'{sample_name}')
+
+        sample_list = exp_sample_list
+
+    # Return list
+    return sample_list
