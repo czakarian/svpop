@@ -112,7 +112,7 @@ rule var_intersect_venn:
         # Make Venn
         fig = svpoplib.plot.venn.get_venn_fig(
             set_a, set_b,
-            name_a, name_b,
+            wildcards.sourcename_a + ' ' + wildcards.sample_a, wildcards.sourcename_b + ' ' + wildcards.sample_b,
             '{} - {}'.format(svtype_label, svset_label),
             len_series
         )

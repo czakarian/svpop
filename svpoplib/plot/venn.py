@@ -84,23 +84,25 @@ def get_venn_fig(
         "11": sets[0].intersection(sets[1])
     }
 
-    for name, named_set in named_sets.items():
+    total_size = len(named_sets['11']) + len(named_sets['10']) + len(named_sets['01'])
 
+    for name, named_set in named_sets.items():
+        percentage = (len(named_set) / total_size) * 100
         if len_series is not None:
             set_lengths = sorted([len_series[val] for val in named_set], reverse=True)
 
             if len(set_lengths) > 0:
-                new_label_text = "{:,d}\n(mean:{:,d} bp,\nmed:{:,d} bp)".format(
-                    len(named_set),
+                new_label_text = "{:,d}\n{:.2f}%\n(mean:{:,d} bp,\nmed:{:,d} bp)".format(
+                    len(named_set), percentage,
                     int(np.round(np.mean(set_lengths))),
                     int(np.round(np.median(set_lengths))),
                 )
 
             else:
-                new_label_text = '{:,d}'.format(len(named_set))
+                new_label_text = '{:,d}\n{:.2f}%'.format(len(named_set), percentage)
 
         else:
-            new_label_text = '{:,d}'.format(len(named_set))
+            new_label_text = '{:,d}\n{:.2f}%'.format(len(named_set), percentage)
 
         this_label = v.get_label_by_id(name)
 

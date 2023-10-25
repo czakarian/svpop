@@ -190,7 +190,7 @@ rule variant_anno_repeat_trf_table:
                 ]
             )
 
-            df.to_csv(output.tab, sep='\t', index=False)
+            df.to_csv(output.tsv, sep='\t', index=False)
 
             return
 
