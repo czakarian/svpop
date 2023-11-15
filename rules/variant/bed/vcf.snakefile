@@ -15,6 +15,10 @@ CALLER_VCF_STD_FIELDS = {
         'info': [],
         'format': ['GT', 'GQ', 'DP', 'AD', 'VAF', 'PL']
     },
+    'dvpepper': {
+        'info': [],
+        'format': ['GT', 'DP', 'AD', 'VAF', 'GQ', 'C']
+    },
     'sniffles': {
         'info': ['SVTYPE', 'SVLEN', 'END'],
         'format': ['GT', 'GQ', 'DR', 'DV']
@@ -42,6 +46,10 @@ CALLER_VCF_STD_FIELDS = {
     'delly': {
         'info': ['END', 'PE', 'SR', 'SVLEN', 'SVTYPE', 'SVMETHOD', 'HOMLEN'],
         'format': ['GT', 'GQ', 'RR', 'RV', 'DR', 'DV']
+    },
+    'dragen-sv': {
+        'info': ['SVTYPE', 'END', 'SVLEN'],
+        'format': ['GT', 'FT', 'GQ', 'PL', 'PR', 'SR']
     }
 }
 
