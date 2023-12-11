@@ -50,7 +50,11 @@ CALLER_VCF_STD_FIELDS = {
     'dragen-sv': {
         'info': ['SVTYPE', 'END', 'SVLEN'],
         'format': ['GT', 'FT', 'GQ', 'PL', 'PR', 'SR']
-    }
+    },
+    'dragen': {
+        'info': [],
+        'format': ['GT', 'AD', 'DP', 'GQ', 'PL', 'GP']
+    }   
 }
 
 VARIANT_BED_VCF_TYPE_PATTERN = '(vcf|{})'.format('|'.join(CALLER_VCF_STD_FIELDS.keys()))
